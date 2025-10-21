@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Dynamic Portfolio Generator</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  </head>
+
+  <body>
+    <header class="topbar">
+      <h1>Welcome to Dynamic Portfolio Generator</h1>
+      <p>Saves to your informations and creates PDF</p>
+      <button id="logoutBtn">Logout</button>
+    </header>
+
+    <!-- 🔐 Simple Login Section -->
+    <section id="loginSection" class="login-container">
+      <h2>Login to Continue</h2>
+      <input
+        type="email"
+        id="loginEmail"
+        placeholder="Enter your email"
+        required
+      />
+      <input
+        type="password"
+        id="loginPassword"
+        placeholder="Enter your password"
+        required
+      />
+      <button id="loginBtn">Login</button>
+    </section>
+
+    <main class="container" id="mainContent" style="display: none">
+      <section class="form-column">
+        <form id="portfolioForm" autocomplete="off">
+          <fieldset>
+            <legend>Personal Information</legend>
+            <label
+              >Full name
+              <input
+                type="text"
+                id="fullName"
+                required
+                maxlength="80"
+                placeholder="Enter your full name"
+              />
+            </label>
+            <label
+              >Contact info (email / phone / website)
+              <input
+                type="text"
+                id="contactInfo"
+                required
+                maxlength="120"
+                placeholder="email, phone or website"
+              />
+            </label>
+            <label
+              >Photo (.jpg/.png)
+              <input
+                type="file"
+                accept="image/png,image/jpeg"
+                id="photoInput"
+              />
+            </label>
+            <label
+              >Short bio
+              <textarea
+                id="bio"
+                rows="4"
+                maxlength="600"
+                placeholder="Write a short bio..."
+              ></textarea>
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Skills</legend>
+            <label
+              >Soft skills
+              <input
+                type="text"
+                id="softSkills"
+                placeholder="e.g. communication, teamwork, leadership"
+              />
+            </label>
+            <label
+              >Technical skills
+              <input
+                type="text"
+                id="techSkills"
+                placeholder="e.g. JavaScript, React, CSS"
+              />
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Academic Background (optional)</legend>
+            <select name="degree">
+                <option>Choose One</option>
+                <option>SSC</option>
+                <option>HSC</option>
+                <option>BSc</option>
+                <option>MSc</option>
+            </select>
+            <div class="small-grid">
+              <input type="text" id="institute" placeholder="Institute name" />
+              <input type="text" id="grade" placeholder="Grade / CGPA" />
+              
+            </div>
+            <div class="small-grid">
+              <input type="text" id="year" placeholder="Year (e.g. 2024)" />
+              
+            </div>
+            <br>
+            <select name="degree">
+                <option>Choose One</option>
+                <option>SSC</option>
+                <option>HSC</option>
+                <option>BSc</option>
+                <option>MSc</option>
+            </select>
+            <div class="small-grid">
+              <input type="text" id="institute" placeholder="Institute name" />
+              <input type="text" id="grade" placeholder="Grade / CGPA" />
+              
+            </div>
+            <div class="small-grid">
+              <input type="text" id="year" placeholder="Year (e.g. 2024)" />
+              
+            </div>
+            <br>
+            <select name="degree">
+                <option>Choose One</option>
+                <option>SSC</option>
+                <option>HSC</option>
+                <option>BSc</option>
+                <option>MSc</option>
+            </select>
+            <div class="small-grid">
+              <input type="text" id="institute" placeholder="Institute name" />
+              <input type="text" id="grade" placeholder="Grade / CGPA" />
+              
+            </div>
+
+            <div class="small-grid">
+              <input type="text" id="year" placeholder="Year (e.g. 2024)" />
+            
+            </div>
+            <br>
+            <select name="degree">
+                <option>Choose One</option>
+                <option>SSC</option>
+                <option>HSC</option>
+                <option>BSc</option>
+                <option>MSc</option>
+            </select>
+            <div class="small-grid">
+              <input type="text" id="institute" placeholder="Institute name" />
+              <input type="text" id="grade" placeholder="Grade / CGPA" />
+              
+            </div>
+
+            <div class="small-grid">
+              <input type="text" id="year" placeholder="Year (e.g. 2024)" />
+            
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Work Experience</legend>
+            <div class="exp-row">
+              <input type="text" id="company" placeholder="Company name" />
+              <input
+                type="text"
+                id="duration"
+                placeholder="Duration (e.g. 2022 - 2024)"
+              />
+            </div>
+            <label
+              >Responsibilities (one per line)
+              <textarea
+                id="responsibilities"
+                rows="4"
+                placeholder="Responsibility 1&#10;Responsibility 2"
+              ></textarea>
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Projects / Publications (optional)</legend>
+            <label>
+              Add projects or publication titles and short descriptions (one per
+              line)
+              <textarea
+                id="projects"
+                rows="4"
+                placeholder="Project A - Built X using Y"
+              ></textarea>
+            </label>
+          </fieldset>
+
+          <div class="form-actions">
+            <button type="button" id="saveBtn">Save Profile</button>
+            <button type="button" id="generatePdfBtn">Generate PDF</button>
+            <button type="button" id="clearFormBtn" class="danger">
+              Clear Form
+            </button>
+          </div>
+        </form>
+
+        <section class="saved-profiles">
+          <h3>Saved Profiles</h3>
+          <ul id="profilesList" class="profiles-list"></ul>
+        </section>
+      </section>
+
+      <section class="preview-column">
+        <h2>Live Preview</h2>
+        <div id="preview" class="portfolio-card">
+          <div class="card-header">
+            <img id="previewPhoto" alt="Photo" src="" />
+            <div class="header-text">
+              <h3 id="previewName">Full Name</h3>
+              <p id="previewContact">Contact information</p>
+            </div>
+          </div>
+
+          <section class="card-section">
+            <h4>About</h4>
+            <p id="previewBio">Short bio appears here.</p>
+          </section>
+
+          <section class="card-section">
+            <h4>Skills</h4>
+            <p><strong>Soft:</strong> <span id="previewSoft">—</span></p>
+            <p><strong>Technical:</strong> <span id="previewTech">—</span></p>
+          </section>
+
+          <section class="card-section" id="previewAcademicsSection">
+            <h4>Academics</h4>
+            <p id="previewAcademics">Institute — Degree — Year — Grade</p>
+          </section>
+
+          <section class="card-section">
+            <h4>Work Experience</h4>
+            <p id="previewCompany">Company (Duration)</p>
+            <ul id="previewResponsibilities"></ul>
+          </section>
+
+          <section class="card-section" id="previewProjectsSection">
+            <h4>Projects / Publications</h4>
+            <ul id="previewProjects"></ul>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <small>Developed by Abdul Wadud</small>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
